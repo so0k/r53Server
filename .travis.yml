@@ -16,7 +16,6 @@ jobs:
   - stage: Docker image
     script:
       - make docker
-      - docker login 
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin $DOCKER_REGISTRY
       - make docker-push
   - stage: Build Release
