@@ -1,0 +1,59 @@
+language: go
+sudo: false
+go:
+- 1.10.x
+before_install:
+- go get github.com/golang/lint/golint
+- go get honnef.co/go/tools/cmd/staticcheck
+jobs:
+  include:
+  - script: make all
+  - stage: Run Test Coverage
+    script: make cover
+    after_success: bash <(curl -s https://codecov.io/bash)
+  - stage: Build Release
+    script:
+      - make release
+      - echo "Deploying to GitHub releases ..."
+    deploy:
+      provider: releases
+      file:
+        - cross/r53server-darwin-amd64
+        - cross/r53server-darwin-amd64.md5
+        - cross/r53server-darwin-amd64.sha256
+        - cross/r53server-darwin-386
+        - cross/r53server-darwin-386.md5
+        - cross/r53server-darwin-386.sha256
+        - cross/r53server-freebsd-amd64
+        - cross/r53server-freebsd-amd64.md5
+        - cross/r53server-freebsd-amd64.sha256
+        - cross/r53server-freebsd-386
+        - cross/r53server-freebsd-386.md5
+        - cross/r53server-freebsd-386.sha256
+        - cross/r53server-linux-arm
+        - cross/r53server-linux-arm.md5
+        - cross/r53server-linux-arm.sha256
+        - cross/r53server-linux-arm64
+        - cross/r53server-linux-arm64.md5
+        - cross/r53server-linux-arm64.sha256
+        - cross/r53server-linux-amd64
+        - cross/r53server-linux-amd64.md5
+        - cross/r53server-linux-amd64.sha256
+        - cross/r53server-linux-386
+        - cross/r53server-linux-386.md5
+        - cross/r53server-linux-386.sha256
+        - cross/r53server-solaris-amd64
+        - cross/r53server-solaris-amd64.md5
+        - cross/r53server-solaris-amd64.sha256
+        - cross/r53server-windows-amd64
+        - cross/r53server-windows-amd64.md5
+        - cross/r53server-windows-amd64.sha256
+        - cross/r53server-windows-386
+        - cross/r53server-windows-386.md5
+        - cross/r53server-windows-386.sha256
+      skip_cleanup: true
+      on:
+        tags: true
+      api_key:
+        secure: n3kQl9fRtIbR9lt90/Ql5zm6x9L+iw/9GnkMfAjAbnspTf7v25kb81w9KrRN74kx2EDOhVpXrPNstkGBQSlRv4tjpXV1Tu9H1ExHoKhK4OB6e/BN8IJUU1/7UYldeK4vvpTLjqzXrsXR8HwIvgdYSiUEU0rjNdzjYsC2Z3IDJJdE7EUs3ewuJCM+oKSBnggNIUdXh2ftJz48GLhg2kVP0fXtFuuy8XxnfjQCjIllOYNbiZy3AJtuvHZDP5nL7BvylXVd883/j/Cq+D7Y6kl1Qdg4nw27KRcONgP9FgUHdNOcTGtj+39GiPkElIP2NHWr+BDaq+TyDapQIXMnyN824VSML9LEo6zv5fMlBXcaRe6kFCi+kP0fxTAisXUWVgFuxhbLmzdMiNBHXrk8W7OMapkCqip7/chhAUX5lJtpE7/7fE9FUcrid87NTaQxVURafVWWuLX/yWOOBwmpQuTZ/4OktuljkgZN2tnRiSDigSdPZiLeUS9RPlZXBXvOMlFGuqc+AQkQ1TcOGAOK4Bydaxh+bDqUplT56aV1NtQsN+N7AgTq8BULdZsZ/fI2m0IH/M7VoP00OnGn7dHOurxWHMiDsIOdDvKwShx00yZw5gZqxddlU8BKH31QthDjCqabttOZVM3lC8bhlQbZyzW76cO3wdcUnLWpxtkkfxDK0yA=
+  
