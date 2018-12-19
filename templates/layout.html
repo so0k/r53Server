@@ -1,0 +1,37 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Route53 DNS Index</title>
+    <link rel="icon" type="image/ico" href="/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <h1>Route53 DNS Index</h1>
+
+    {{ range $key, $zone := .Zones }}
+    <div class="wrapper">
+        <table>
+            <tr>
+                <th>{{$zone.Name}}</th>
+            </tr>
+            {{ range $index, $record := $zone.Records }}
+            <tr>
+                <td>
+                    <a href="http://{{$record}}">{{$record}}</a>
+                </td>
+            </tr>
+            {{ end }}
+        </table>
+    </div>
+    {{ end }}
+
+    <div class="footer">
+        <p>Last Updated: {{ .LastUpdated }}</p>
+    </div><!--/.footer-->
+</body></html>
+{{end}}
