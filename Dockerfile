@@ -20,14 +20,12 @@ RUN set -x \
 	&& mv r53Server /usr/bin/r53Server \
 	&& apk del .build-deps \
 	&& rm -rf /go \
-	&& mkdir /empty \
 	&& echo "Build complete."
 
 FROM scratch
 
 COPY --from=builder /usr/bin/r53Server /usr/bin/r53Server
 COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs
-COPY --from=builder /empty /tmp
 
 COPY static static
 COPY templates templates

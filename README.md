@@ -11,7 +11,7 @@ based on [jessfraz/s3server](https://github.com/jessfraz/s3server)
 
 ```bash
 Server to index & view recods in r53 zones.
- Version: v0.1.0
+ Version: v0.1.1
  Build: 9089a07
   -aws-access-key-id string
         AWS access key
@@ -35,7 +35,8 @@ docker run -d \
   -p 8080:8080 \
   -e AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY \
-  quay.io/swo0k/r53server:v0.1.0 \
+  --tmpfs /tmp \
+  quay.io/swo0k/r53server:v0.1.1 \
     -zone Z2UE.......... \
     -zone Z1W...........
 ```
