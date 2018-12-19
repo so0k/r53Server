@@ -1,5 +1,7 @@
 language: go
 sudo: false
+services:
+- docker
 go:
 - 1.10.x
 before_install:
@@ -11,6 +13,12 @@ jobs:
   - stage: Run Test Coverage
     script: make cover
     after_success: bash <(curl -s https://codecov.io/bash)
+  - stage: Docker image
+    script:
+      - make docker
+      - docker login 
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin $DOCKER_REGISTRY
+      - make docker-push
   - stage: Build Release
     script:
       - make release
