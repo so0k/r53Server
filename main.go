@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
-	"github.com/so0k/r53server/version"
+	"github.com/so0k/r53Server/version"
 )
 
 const (
@@ -74,7 +74,7 @@ func init() {
 	flag.Parse()
 
 	if vrsn {
-		fmt.Printf("r53server version %s, build %s", version.VERSION, version.GITCOMMIT)
+		fmt.Printf("r53Server version %s, build %s", version.VERSION, version.GITCOMMIT)
 		os.Exit(0)
 	}
 }
@@ -161,7 +161,7 @@ func createStaticIndex(p cloud, staticDir string) error {
 
 	// create temporoary file to save template to
 	logrus.Info("creating temporary file for template")
-	f, err := ioutil.TempFile("", "r53server")
+	f, err := ioutil.TempFile("", "r53Server")
 	if err != nil {
 		return fmt.Errorf("creating temp file failed: %v", err)
 	}

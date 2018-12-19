@@ -6,7 +6,7 @@ ENV GOPATH /go
 RUN	apk add --no-cache \
 	ca-certificates
 
-COPY . /go/src/github.com/so0k/r53server
+COPY . /go/src/github.com/so0k/r53Server
 
 RUN set -x \
 	&& apk add --no-cache --virtual .build-deps \
@@ -15,9 +15,9 @@ RUN set -x \
 		libc-dev \
 		libgcc \
 		make \
-	&& cd /go/src/github.com/so0k/r53server \
+	&& cd /go/src/github.com/so0k/r53Server \
 	&& make static \
-	&& mv r53server /usr/bin/r53server \
+	&& mv r53Server /usr/bin/r53Server \
 	&& apk del .build-deps \
 	&& rm -rf /go \
 	&& mkdir /empty \
@@ -25,12 +25,12 @@ RUN set -x \
 
 FROM scratch
 
-COPY --from=builder /usr/bin/r53server /usr/bin/r53server
+COPY --from=builder /usr/bin/r53Server /usr/bin/r53Server
 COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs
 COPY --from=builder /empty /tmp
 
 COPY static static
 COPY templates templates
 
-ENTRYPOINT [ "r53server" ]
+ENTRYPOINT [ "r53Server" ]
 CMD [ "--help" ]

@@ -2,7 +2,7 @@
 PREFIX?=$(shell pwd)
 
 # Setup name variables for the package/tool
-NAME := r53server
+NAME := r53Server
 PKG := github.com/so0k/$(NAME)
 
 # Set any default go build tags

@@ -18,39 +18,39 @@ jobs:
     deploy:
       provider: releases
       file:
-        - cross/r53server-darwin-amd64
-        - cross/r53server-darwin-amd64.md5
-        - cross/r53server-darwin-amd64.sha256
-        - cross/r53server-darwin-386
-        - cross/r53server-darwin-386.md5
-        - cross/r53server-darwin-386.sha256
-        - cross/r53server-freebsd-amd64
-        - cross/r53server-freebsd-amd64.md5
-        - cross/r53server-freebsd-amd64.sha256
-        - cross/r53server-freebsd-386
-        - cross/r53server-freebsd-386.md5
-        - cross/r53server-freebsd-386.sha256
-        - cross/r53server-linux-arm
-        - cross/r53server-linux-arm.md5
-        - cross/r53server-linux-arm.sha256
-        - cross/r53server-linux-arm64
-        - cross/r53server-linux-arm64.md5
-        - cross/r53server-linux-arm64.sha256
-        - cross/r53server-linux-amd64
-        - cross/r53server-linux-amd64.md5
-        - cross/r53server-linux-amd64.sha256
-        - cross/r53server-linux-386
-        - cross/r53server-linux-386.md5
-        - cross/r53server-linux-386.sha256
-        - cross/r53server-solaris-amd64
-        - cross/r53server-solaris-amd64.md5
-        - cross/r53server-solaris-amd64.sha256
-        - cross/r53server-windows-amd64
-        - cross/r53server-windows-amd64.md5
-        - cross/r53server-windows-amd64.sha256
-        - cross/r53server-windows-386
-        - cross/r53server-windows-386.md5
-        - cross/r53server-windows-386.sha256
+        - cross/r53Server-darwin-amd64
+        - cross/r53Server-darwin-amd64.md5
+        - cross/r53Server-darwin-amd64.sha256
+        - cross/r53Server-darwin-386
+        - cross/r53Server-darwin-386.md5
+        - cross/r53Server-darwin-386.sha256
+        - cross/r53Server-freebsd-amd64
+        - cross/r53Server-freebsd-amd64.md5
+        - cross/r53Server-freebsd-amd64.sha256
+        - cross/r53Server-freebsd-386
+        - cross/r53Server-freebsd-386.md5
+        - cross/r53Server-freebsd-386.sha256
+        - cross/r53Server-linux-arm
+        - cross/r53Server-linux-arm.md5
+        - cross/r53Server-linux-arm.sha256
+        - cross/r53Server-linux-arm64
+        - cross/r53Server-linux-arm64.md5
+        - cross/r53Server-linux-arm64.sha256
+        - cross/r53Server-linux-amd64
+        - cross/r53Server-linux-amd64.md5
+        - cross/r53Server-linux-amd64.sha256
+        - cross/r53Server-linux-386
+        - cross/r53Server-linux-386.md5
+        - cross/r53Server-linux-386.sha256
+        - cross/r53Server-solaris-amd64
+        - cross/r53Server-solaris-amd64.md5
+        - cross/r53Server-solaris-amd64.sha256
+        - cross/r53Server-windows-amd64
+        - cross/r53Server-windows-amd64.md5
+        - cross/r53Server-windows-amd64.sha256
+        - cross/r53Server-windows-386
+        - cross/r53Server-windows-386.md5
+        - cross/r53Server-windows-386.sha256
       skip_cleanup: true
       on:
         tags: true
