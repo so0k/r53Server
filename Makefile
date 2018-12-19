@@ -3,7 +3,7 @@ PREFIX?=$(shell pwd)
 
 # Setup name variables for the package/tool
 NAME := r53Server
-DOCKER_REPO := quay.io/swo0k/$(NAME)
+DOCKER_REPO := quay.io/swo0k/$(shell echo ${NAME} | tr '[:upper:]' '[:lower:]')
 PKG := github.com/so0k/$(NAME)
 
 # Set any default go build tags
@@ -70,11 +70,11 @@ staticcheck: ## Verifies `staticcheck` passes
 
 .PHONY: docker
 docker: ## Build docker image
-	docker build -t $(shell echo ${DOCKER_REPO} | tr '[:upper:]' '[:lower:]'):$(VERSION) .
+	docker build -t $(DOCKER_REPO):$(VERSION) .
 	
 .PHONY: docker-push
 docker-push: ## Push docker image
-	docker push $(shell echo ${DOCKER_REPO} | tr '[:upper:]' '[:lower:]'):$(VERSION)
+	docker push $(DOCKER_REPO):$(VERSION)
 
 .PHONY: cover
 cover: ## Runs go test with coverage

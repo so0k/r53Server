@@ -9,10 +9,10 @@ based on [jessfraz/s3server](https://github.com/jessfraz/s3server)
 
 ## Usage
 
-```
+```bash
 Server to index & view recods in r53 zones.
  Version: v0.1.0
- Build: 9089a07-dirty
+ Build: 9089a07
   -aws-access-key-id string
         AWS access key
   -aws-secret-access-key string
@@ -30,12 +30,12 @@ Server to index & view recods in r53 zones.
 
 ## Docker
 
-```
+```bash
 docker run -d \
   -p 8080:8080 \
   -e AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY \
-  so0k/r53server \
+  quay.io/swo0k/r53server:v0.1.0 \
     -zone Z2UE.......... \
     -zone Z1W...........
 ```
