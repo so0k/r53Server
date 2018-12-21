@@ -36,7 +36,7 @@ $ ./r53Server -h
 # roleArn `none` is special keyword
 roles:
 - roleArn: none
-  zones: []
+  zones:
   - Z...
 - roleArn: "arn:aws:iam::..."
   zones:
