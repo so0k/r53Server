@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 	"text/template"
 	"time"
 
@@ -20,16 +19,16 @@ import (
 const (
 	// BANNER is what is printed for help/info output.
 	BANNER = `
- Server to index & view recods in r53 zones.
+ Server to index & view records in r53 zones.
  Version: %s
  Build: %s
 `
 )
 
 var (
-	provider string
-	zones    sliceFlag
-	interval string
+	provider   string
+	configFile string
+	interval   string
 
 	awsAccessKey string
 	awsSecretKey string
@@ -41,25 +40,13 @@ var (
 	vrsn bool
 )
 
-type sliceFlag []string
-
-func (s *sliceFlag) String() string {
-	return strings.Join(*s, ",")
-}
-
-func (s *sliceFlag) Set(value string) error {
-	*s = append(*s, value)
-	return nil
-}
-
 func init() {
 	provider = "r53" // only supported provider
 	flag.StringVar(&interval, "interval", "5m", "interval to generate new index.html's at")
 
 	flag.StringVar(&awsAccessKey, "aws-access-key-id", "", "AWS access key")
 	flag.StringVar(&awsSecretKey, "aws-secret-access-key", "", "AWS access secret")
-
-	flag.Var(&zones, "zone", "Route53 Zone Id to fetch records from (can be repeated)")
+	flag.StringVar(&configFile, "config", "config.yaml", "config file")
 
 	flag.StringVar(&port, "p", "8080", "port for server to run on")
 
@@ -80,10 +67,16 @@ func init() {
 }
 
 func main() {
-	// create a new provider
-	p, err := newProvider(provider, awsAccessKey, awsSecretKey, zones)
+	logrus.Infof("Reading config from %q", configFile)
+	config, err := readConfig(configFile)
 	if err != nil {
-		logrus.Fatalf("Creating new provider failed: %v", err)
+		logrus.Fatalf("Reading configFile %q failed: %v", configFile, err)
+	}
+
+	// create a new provider
+	p, err := newProviders(provider, awsAccessKey, awsSecretKey, config)
+	if err != nil {
+		logrus.Fatalf("Creating new providers failed: %v", err)
 	}
 
 	// get the path to the static directory
@@ -143,10 +136,10 @@ type data struct {
 	Zones       []zone
 }
 
-func createStaticIndex(p cloud, staticDir string) error {
+func createStaticIndex(providers []cloud, staticDir string) error {
 	updating = true
 
-	logrus.Infof("Fetching records from %s", p.ZonesString())
+	//logrus.Infof("Fetching records from %s", p.ZonesString())
 	ctx := context.Background()
 	//var cancelFn func()
 	// if timeout > 0 {
@@ -154,12 +147,16 @@ func createStaticIndex(p cloud, staticDir string) error {
 	// }
 	//defer cancelFn()
 
-	zones, err := p.List(ctx)
-	if err != nil {
-		return fmt.Errorf("Listing all records in Zones failed: %v", err)
+	var zones []zone
+	for _, p := range providers {
+		z, err := p.List(ctx)
+		if err != nil {
+			return fmt.Errorf("Listing all records in Zones failed: %v", err)
+		}
+		zones = append(zones, z...)
 	}
 
-	// create temporoary file to save template to
+	// create temp file to save template to
 	logrus.Info("creating temporary file for template")
 	f, err := ioutil.TempFile("", "r53Server")
 	if err != nil {

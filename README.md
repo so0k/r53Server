@@ -10,13 +10,17 @@ based on [jessfraz/s3server](https://github.com/jessfraz/s3server)
 ## Usage
 
 ```bash
-Server to index & view recods in r53 zones.
- Version: v0.1.1
- Build: 9089a07
+$ ./r53Server -h
+
+ Server to index & view records in r53 zones.
+ Version: v0.2.0
+ Build: 6ce6dfd
   -aws-access-key-id string
         AWS access key
   -aws-secret-access-key string
         AWS access secret
+  -config string
+        config file (default "config.yaml")
   -interval string
         interval to generate new index.html's at (default "5m")
   -p string
@@ -24,8 +28,19 @@ Server to index & view recods in r53 zones.
   -v    print version and exit (shorthand)
   -version
         print version and exit
-  -zone value
-        Route53 Zone Id to fetch records from (can be repeated)
+```
+
+`config.yaml` format
+
+```yaml
+# roleArn `none` is special keyword
+roles:
+- roleArn: none
+  zones: []
+  - Z...
+- roleArn: "arn:aws:iam::..."
+  zones:
+  - Z...
 ```
 
 ## Docker

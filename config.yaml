@@ -1,0 +1,10 @@
+# A Config file specifying zones and optional roleArn for each zone
+# roleArn `none` is special keyword
+roles:
+- roleArn: none
+  zones: []
+#   ## Uncomment these lines to enable zones to fetch A records from
+#   - Z...
+# - roleArn: "arn:aws:iam::..."
+#   zones:
+#   - Z...
