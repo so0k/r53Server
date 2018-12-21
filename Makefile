@@ -122,7 +122,7 @@ release: *.go _VERSION ## Builds the cross-compiled binaries, naming them in suc
 	$(foreach GOOSARCH,$(GOOSARCHES), $(call buildrelease,$(subst /,,$(dir $(GOOSARCH))),$(notdir $(GOOSARCH))))
 
 .PHONY: bump-version
-BUMP := patch
+BUMP := minor
 bump-version: ## Bump the version in the version file. Set BUMP to [ patch | major | minor ]
 	@go get -u github.com/jessfraz/junk/sembump # update sembump tool
 	$(eval NEW_VERSION = $(shell sembump --kind $(BUMP) $(VERSION)))

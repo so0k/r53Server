@@ -50,8 +50,8 @@ docker run -d \
   -p 8080:8080 \
   -e AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY \
+  -v $PWD/config.yaml:/config.yaml \
   --tmpfs /tmp \
   quay.io/swo0k/r53server:v0.1.1 \
-    -zone Z2UE.......... \
-    -zone Z1W...........
+    -p 8080
 ```
