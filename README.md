@@ -52,6 +52,6 @@ docker run -d \
   -e AWS_SECRET_ACCESS_KEY \
   -v $PWD/config.yaml:/config.yaml \
   --tmpfs /tmp \
-  quay.io/swo0k/r53server:v0.1.1 \
+  quay.io/swo0k/r53server:v0.2.0 \
     -p 8080
 ```
